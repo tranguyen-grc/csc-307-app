@@ -1,15 +1,14 @@
-// src/Table.jsx
 import React from "react";
 
 function TableHeader() {
   return (
-    <thread>
+    <thead>
       <tr>
         <th>Name</th>
         <th>Job</th>
         <th>Edit</th>
       </tr>
-    </thread>
+    </thead>
   );
 }
 
