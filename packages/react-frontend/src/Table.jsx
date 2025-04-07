@@ -13,6 +13,7 @@ function TableHeader() {
 }
 
 function TableBody(props) {
+  // map() applies the function to each element (like a lambda function)
   const rows = props.characterData.map((row, index) => {
     return (
       <tr key={index}>
@@ -31,6 +32,7 @@ function Table(props) {
   return (
     <table>
       <TableHeader />
+      {/* receives characterData and removeCharacter from the props passed into Table */}
       <TableBody
         characterData={props.characterData}
         removeCharacter={props.removeCharacter}

@@ -3,8 +3,10 @@ import Table from "./Table";
 import Form from "./Form";
 
 function MyApp() {
+  // character array
   const [characters, setCharacters] = useState([]);
 
+  // passed down into Table
   function removeOneCharacter(index) {
     const updated = characters.filter((character, i) => {
       return i !== index;
@@ -12,10 +14,17 @@ function MyApp() {
     setCharacters(updated);
   }
 
+  // passed down into Form
+  function updateList(person) {
+    setCharacters([...characters, person]);
+  }
+
   return (
     <div className="container">
+      {/* pass character array and removeOneCharacter to Table */}
       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-      <Form />
+      {/* pass updateList to Form */}
+      <Form handleSubmit={updateList} />
     </div>
   );
 }
