@@ -39,16 +39,14 @@ const users = {
 //   res.send(users);
 // });
 
-const findUserByName = (name) => {
-  return users["users_list"].filter((user) => user["name"] === name);
-};
-
-const findUserById = (id) =>
-  users["users_list"].find((user) => user["id"] === id);
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+// filter by name
+const findUserByName = (name) => {
+  return users["users_list"].filter((user) => user["name"] === name);
+};
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
@@ -61,6 +59,10 @@ app.get("/users", (req, res) => {
   }
 });
 
+// filter by ID
+const findUserById = (id) =>
+  users["users_list"].find((user) => user["id"] === id);
+
 app.get("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
   let result = findUserById(id);
@@ -69,6 +71,18 @@ app.get("/users/:id", (req, res) => {
   } else {
     res.send(result);
   }
+});
+
+// add a user
+const addUser = (user) => {
+  users["users_list"].push(user);
+  return user;
+};
+
+app.post("/users", (req, res) => {
+  const userToAdd = req.body;
+  addUser(userToAdd);
+  res.send();
 });
 
 app.listen(port, () => {
