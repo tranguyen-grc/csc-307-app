@@ -1,7 +1,11 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
+
+// allows backend to respond to calls coming from a dif origin
+app.use(cors());
 
 app.use(express.json());
 
