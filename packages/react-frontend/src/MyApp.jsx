@@ -16,7 +16,11 @@ function MyApp() {
 
   // passed down into Form
   function updateList(person) {
-    setCharacters([...characters, person]);
+    postUser(person)
+      .then(() => setCharacters([...characters, person]))
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function fetchUsers() {
@@ -32,6 +36,19 @@ function MyApp() {
         console.log(error);
       });
   }, []);
+
+  // to add user
+  function postUser(person) {
+    const promise = fetch("Http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(person),
+    });
+
+    return promise;
+  }
 
   return (
     <div className="container">
