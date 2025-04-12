@@ -43,6 +43,12 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// generate random ID
+const generateId = () => {
+  // numbers and letters only, 6 characters
+  return Math.random().toString(36).substr(2, 6);
+};
+
 // filter by name
 const findUserByName = (name) => {
   return users["users_list"].filter((user) => user["name"] === name);
@@ -64,14 +70,15 @@ app.get("/users/:id", (req, res) => {
 
 // add a user
 const addUser = (user) => {
-  users["users_list"].push(user);
-  return user;
+  const userWithId = { ...user, id: generateId() };
+  users["users_list"].push(userWithId);
+  return userWithId;
 };
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  addUser(userToAdd);
-  res.send();
+  const createdUser = addUser(userToAdd);
+  res.status(201).json(createdUser);
 });
 
 // delete a user by ID
