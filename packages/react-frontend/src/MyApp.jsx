@@ -7,15 +7,15 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
 
   // passed down into Table
-  function removeOneCharacter(index) {
-    const characterToDelete = characters[index];
-
-    fetch(`http://localhost:8000/users/${characterToDelete.id}`, {
+  function removeOneCharacter(_id) {
+    fetch(`http://localhost:8000/users/${_id}`, {
       method: "DELETE",
     })
       .then((res) => {
         if (res.status === 204) {
-          const updated = characters.filter((character, i) => i !== index);
+          const updated = characters.filter(
+            (character) => character._id !== _id
+          );
           setCharacters(updated);
           console.log("User deleted successfully.");
         } else {
